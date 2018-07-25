@@ -6,6 +6,7 @@ import (
 	"crypto/sha512"
 	"fmt"
 	"io"
+	"runtime"
 	"sort"
 	"testing"
 
@@ -15,6 +16,9 @@ import (
 )
 
 func TestExpectedBehavior(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("Skipping test on Windows")
+	}
 	store, _, teardown := newStoreTest(t, OptBasePath("/storage"))
 	defer teardown()
 	require := require.New(t)
@@ -123,6 +127,9 @@ func TestExpectedBehavior(t *testing.T) {
 }
 
 func TestVersionParentNodeDataIsNotSetIfItAlreadyExists(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("Skipping test on Windows")
+	}
 	store, conn, teardown := newStoreTest(t, fixedBucketFunc(42), OptBasePath("/storage"))
 	defer teardown()
 	require := require.New(t)
@@ -164,6 +171,9 @@ func TestVersionParentNodeDataIsNotSetIfItAlreadyExists(t *testing.T) {
 }
 
 func TestVersionParentNodeIsSetIfItDoesNotExist(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("Skipping test on Windows")
+	}
 	store, conn, teardown := newStoreTest(t, fixedBucketFunc(42), OptBasePath("/storage"))
 	defer teardown()
 	require := require.New(t)
@@ -197,6 +207,9 @@ func TestVersionParentNodeIsSetIfItDoesNotExist(t *testing.T) {
 // store respects that and rejects operations for which a version was
 // different from that which was specified.
 func TestVersion(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("Skipping test on Windows")
+	}
 	store, _, teardown := newStoreTest(t, fixedBucketFunc(42), OptBasePath("/storage"))
 	defer teardown()
 	require := require.New(t)
@@ -253,6 +266,9 @@ func TestVersion(t *testing.T) {
 }
 
 func TestVersionSetOnCreate(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("Skipping test on Windows")
+	}
 	store, _, teardown := newStoreTest(t, fixedBucketFunc(42), OptBasePath("/storage"))
 	defer teardown()
 	require := require.New(t)
@@ -331,6 +347,9 @@ func TestVersionSetOnCreate(t *testing.T) {
 }
 
 func TestVersionIsIncrementedOnPut(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("Skipping test on Windows")
+	}
 	store, _, teardown := newStoreTest(t, fixedBucketFunc(42), OptBasePath("/storage"))
 	defer teardown()
 	require := require.New(t)
@@ -372,6 +391,9 @@ func TestVersionIsIncrementedOnPut(t *testing.T) {
 }
 
 func TestListLocations(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("Skipping test on Windows")
+	}
 	store, _, teardown := newStoreTest(t, fixedBucketFunc(42), OptBasePath("/storage"))
 	defer teardown()
 	require := require.New(t)
